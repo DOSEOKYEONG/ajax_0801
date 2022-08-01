@@ -3,10 +3,13 @@ package com.ll.exam;
 import com.ll.exam.article.ArticleController;
 import com.ll.exam.chat.ChatController;
 import com.ll.exam.member.MemberController;
+import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+
+import java.io.IOException;
 
 @WebServlet("/usr/*")
 public class DispatchServlet extends HttpServlet {
@@ -64,6 +67,9 @@ public class DispatchServlet extends HttpServlet {
                     case "/usr/chat/writeMessage":
                         chatController.doWriteMessage(rq);
                         break;
+                    case "/usr/chat/writeMessageAjax":
+                        chatController.doWriteMessageAjax(rq);
+                        break;
                     case "/usr/chat/createRoom":
                         chatController.doCreateRoom(rq);
                         break;
@@ -83,6 +89,9 @@ public class DispatchServlet extends HttpServlet {
                     case "/usr/chat/deleteRoom":
                         chatController.deleteRoom(rq);
                         break;
+                    case "/usr/chat/deleteMessage":
+                        chatController.deleteMessageAjax(rq);
+                        break;
                     case "/usr/article/delete":
                         articleController.doDelete(rq);
                         break;
@@ -92,6 +101,11 @@ public class DispatchServlet extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) {
+        doGet(req, resp);
+    }
+
+    @Override
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) {
         doGet(req, resp);
     }
 }

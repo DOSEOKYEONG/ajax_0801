@@ -50,4 +50,25 @@ public class ChatMessageRepository {
                 .filter(chatMessageDto -> chatMessageDto.getId() > fromId)
                 .collect(Collectors.toList());
     }
+
+    public ChatMessageDto findMessageById(long id) {
+        for (ChatMessageDto chatMessageDto : datum) {
+            if (chatMessageDto.getId() == id) {
+                return chatMessageDto;
+            }
+        }
+
+        return null;
+    }
+
+    public long deleteMessage(long id) {
+        for (ChatMessageDto chatMessageDto : datum) {
+            if (chatMessageDto.getId() == id) {
+                datum.remove(chatMessageDto);
+                return id;
+            }
+        }
+
+        return 0;
+    }
 }
